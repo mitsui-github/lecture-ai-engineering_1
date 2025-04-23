@@ -9,9 +9,30 @@ from metrics import get_metrics_descriptions
 
 # --- チャットページのUI ---
 def display_chat_page(pipe):
+    st.markdown(
+    """
+    <style>
+    /* ページ全体の背景色を薄い青に */
+    .stApp {
+        background-color: #e0f7fa;
+    }
+    /* メインエリア（ウィジェット群）の背景も変えたい場合 */
+    .css-1d391kg {  
+        background-color: #e0f7fa;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+  )
     """チャットページのUIを表示する"""
     st.subheader("質問を入力してください")
     user_question = st.text_area("質問", key="question_input", height=100, value=st.session_state.get("current_question", ""))
+    # 画像アップロードを追加
+    uploaded_image = st.file_uploader(
+        "画像をアップロード (任意でモデル変更前のため、意味なし)", 
+        type=["png", "jpg", "jpeg"],
+        key="question_image"
+    )
     submit_button = st.button("質問を送信")
 
     # セッション状態の初期化（安全のため）
